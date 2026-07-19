@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy App files to staging app folder
         run: |
-          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }} -i ~/.ssh/id_rsa" deploy/app/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging/
+          rsync -avz -e "ssh -vvv -p ${{ secrets.CPANEL_PORT }} -i ~/.ssh/id_rsa" deploy/app/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging/
 
       - name: Deploy Public files to staging subdomain folder
         run: |
