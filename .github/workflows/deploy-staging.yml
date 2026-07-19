@@ -34,6 +34,13 @@ jobs:
           echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p ${{ secrets.CPANEL_PORT }} -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
+          
+          # Modern Ubuntu runners disable ssh-rsa by default, which cPanel often requires.
+          cat <<EOF > ~/.ssh/config
+          Host *
+            PubkeyAcceptedKeyTypes +ssh-rsa
+            HostKeyAlgorithms +ssh-rsa
+          EOF
 
       - name: Deploy App files to staging app folder
         run: |
