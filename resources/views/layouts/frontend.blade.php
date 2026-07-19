@@ -30,6 +30,14 @@
 </head>
 <body>
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="{{ asset('assets/frontend/images/logos/logo-landscape.webp') }}" alt="HBC Logo" class="preloader-logo">
+            <div class="preloader-spinner"></div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="bg-white shadow-sm fixed-top" id="mainHeader">
         <div class="container">
@@ -231,6 +239,19 @@
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <!-- Preloader Script -->
+    <script>
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 600); // Matches CSS transition duration
             }
         });
     </script>
