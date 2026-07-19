@@ -37,13 +37,11 @@ jobs:
 
       - name: Deploy App files to staging app folder
         run: |
-          # We deploy the Laravel app files outside the public directory for security
-          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/app/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:staging/
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/app/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:~/staging/
 
       - name: Deploy Public files to staging subdomain folder
         run: |
-          # We deploy the public files directly into the subdomain's document root
-          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/public/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:staging_public_html/
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/public/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:~/staging_public_html/
 
       - name: Fix index.php, Create Storage Symlink & Set Permissions
         run: |
