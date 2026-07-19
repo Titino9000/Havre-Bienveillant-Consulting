@@ -18,81 +18,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/logos/favicon.png')}}">
     
     <!-- Bootstrap CSS (for grid and basic layout utilities) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/vendor/bootstrap/bootstrap-5.3.0-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     
     <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.1.0/css/flag-icons.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/vendor/fontawesome/fontawesome-free-6.4.0-web/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/vendor/flag-icons/flag-icons-7.1.0/css/flag-icons.min.css') }}" rel="stylesheet">
     
     <!-- Custom Premium CSS -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
-    <style>
-        /* Premium Dropdown Styles */
-        .dropdown-hover:hover > .dropdown-menu {
-            display: block;
-            margin-top: 0;
-        }
-        .custom-dropdown-menu {
-            animation: dropdownFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 12px !important;
-            padding: 8px !important;
-            min-width: 220px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08) !important;
-            margin-top: 0 !important; /* Fixed gap issue */
-            border-top: 3px solid var(--primary) !important;
-        }
-        .custom-dropdown-item {
-            transition: all 0.2s ease;
-            color: #333;
-            font-size: 0.95rem;
-            border-radius: 8px;
-        }
-        .custom-dropdown-item:hover, .custom-dropdown-item.active {
-            background-color: var(--bg-light);
-            color: var(--primary) !important;
-            padding-left: 20px !important;
-            font-weight: 600;
-        }
-        @keyframes dropdownFadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Active Nav Link Styles */
-        .navbar-nav .nav-link.active {
-            color: var(--primary) !important;
-            font-weight: 700 !important;
-            position: relative;
-        }
-        .navbar-nav .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background-color: var(--primary);
-            border-radius: 3px;
-        }
-        
-        /* Footer Enhancements */
-        .footer-link-hover {
-            color: rgba(255, 255, 255, 0.6) !important;
-            transition: all 0.3s ease;
-        }
-        .footer-link-hover:hover {
-            color: white !important;
-            transform: translateX(5px);
-        }
-        .social-icon-btn:hover {
-            background-color: var(--secondary) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-    </style>
 </head>
 <body>
 
@@ -286,8 +220,8 @@
                 </div>
             </div>
         </div>
-    </footer>   <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </footer>    <!-- Bootstrap JS -->
+    <script src="{{ asset('assets/frontend/vendor/bootstrap/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js') }}"></script>
     
     <!-- Script for sticky header -->
     <script>
