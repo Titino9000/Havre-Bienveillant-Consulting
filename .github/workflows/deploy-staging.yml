@@ -31,7 +31,7 @@ jobs:
       - name: Setup SSH Agent and Known Hosts
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p ${{ secrets.CPANEL_PORT }} -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
           
@@ -44,15 +44,15 @@ jobs:
 
       - name: Deploy App files to staging app folder
         run: |
-          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/app/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging/
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }} -i ~/.ssh/id_rsa" deploy/app/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging/
 
       - name: Deploy Public files to staging subdomain folder
         run: |
-          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/public/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging_public_html/
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }} -i ~/.ssh/id_rsa" deploy/public/ ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:~/staging_public_html/
 
       - name: Fix index.php, Create Storage Symlink & Set Permissions
         run: |
-          ssh -p ${{ secrets.CPANEL_PORT }} ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
+          ssh -i ~/.ssh/id_rsa -p ${{ secrets.CPANEL_PORT }} ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
             cd ~/staging_public_html
 
             # 1. Modify index.php to point to the 'staging' folder instead of standard paths
