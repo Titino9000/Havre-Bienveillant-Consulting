@@ -8,10 +8,8 @@
     <!-- Meta tags for SEO -->
     <meta name="description" content="HBC Ltd offre un accompagnement psychosocial professionnel et bienveillant aux individus et aux institutions éducatives.">
     
-    @if(app()->environment('staging', 'local'))
-    <!-- Prevent indexing on staging environments -->
+    <!-- Prevent indexing on staging/development for now -->
     <meta name="robots" content="noindex, nofollow">
-    @endif
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" href="{{asset('assets/frontend/images/logos/favicon.png')}}">
@@ -45,7 +43,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                     <img src="{{ asset('assets/frontend/images/logos/logo-landscape.webp') }}" alt="HBC Logo" style="height: 80px;">
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
