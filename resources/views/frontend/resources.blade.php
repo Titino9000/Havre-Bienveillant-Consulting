@@ -100,7 +100,7 @@
             @forelse($videos as $index => $video)
             <div class="col-lg-5 animate-up delay-{{ $index % 2 }}">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden position-relative group">
-                    <img src="{{ $video->image_path ?? 'https://via.placeholder.com/600x400' }}" alt="Video Thumbnail" class="img-fluid" style="height: 250px; width: 100%; object-fit: cover;">
+                    <img src="{{ $video->image_path ?? asset('assets/frontend/images/placeholder-image.png') }}" alt="Video Thumbnail" class="img-fluid" style="height: 250px; width: 100%; object-fit: cover;">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.4);">
                         <a href="{{ $video->file_path ?? '#' }}" class="btn btn-light rounded-circle shadow-lg" style="width: 70px; height: 70px; display: inline-flex; align-items: center; justify-content: center;">
                             <i class="bx bx-play fs-1 ms-1 text-primary"></i>

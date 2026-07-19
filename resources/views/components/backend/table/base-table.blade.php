@@ -218,7 +218,7 @@
                                              class="rounded"
                                              width="80"
                                              height="60"
-                                             onerror="this.onerror=null;this.src='{{ asset('images/default-image.jpg') }}';">
+                                             onerror="this.onerror=null;this.src='{{ asset('assets/backend/img/placeholder-image.png') }}';">
                                         @break
 
                                         {{-- User Thumbnail --}}
@@ -228,7 +228,7 @@
                                              class="rounded"
                                              width="60"
                                              height="60"
-                                             onerror="this.onerror=null;this.src='{{ asset('images/default-image.jpg') }}';">
+                                             onerror="this.onerror=null;this.src='{{ asset('assets/backend/img/placeholder-image.png') }}';">
                                         @break
 
                                         {{-- Status --}}
