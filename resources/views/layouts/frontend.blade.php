@@ -8,6 +8,11 @@
     <!-- Meta tags for SEO -->
     <meta name="description" content="HBC Ltd offre un accompagnement psychosocial professionnel et bienveillant aux individus et aux institutions éducatives.">
     
+    @if(app()->environment('staging', 'local'))
+    <!-- Prevent indexing on staging environments -->
+    <meta name="robots" content="noindex, nofollow">
+    @endif
+    
     <!-- Favicon -->
     <link rel="apple-touch-icon" href="{{asset('assets/frontend/images/logos/favicon.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/frontend/images/logos/favicon.png')}}">

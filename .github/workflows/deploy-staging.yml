@@ -1,0 +1,66 @@
+name: Deploy Laravel to Staging via SSH
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, pdo_mysql, zip, bcmath, ctype, fileinfo, json, tokenizer, xml
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Prepare deployment directories
+        run: |
+          mkdir -p deploy/app deploy/public
+          rsync -av --exclude='public' --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='tests' --exclude='.env*' . deploy/app/
+          rsync -av public/ deploy/public/
+
+      - name: Setup SSH Agent and Known Hosts
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p ${{ secrets.CPANEL_PORT }} -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy App files to staging app folder
+        run: |
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/app/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:havre_staging_app/
+
+      - name: Deploy Public files to staging subdomain folder
+        run: |
+          rsync -avz -e "ssh -p ${{ secrets.CPANEL_PORT }}" deploy/public/ ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:staging.ryzhatech.com/
+
+      - name: Fix index.php, Create Storage Symlink & Set Permissions
+        run: |
+          ssh -p ${{ secrets.CPANEL_PORT }} ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} "
+            cd ~/staging.ryzhatech.com
+
+            # 1. Modify index.php to point to the 'havre_staging_app' folder instead of standard paths
+            sed -i \"s|require __DIR__.'/../vendor/autoload.php';|require __DIR__.'/../havre_staging_app/vendor/autoload.php';|\" index.php
+            sed -i \"s|require_once __DIR__.'/../bootstrap/app.php';|require_once __DIR__.'/../havre_staging_app/bootstrap/app.php';|\" index.php
+
+            # 2. Create symlink so storage is accessible publicly
+            rm -rf storage
+            ln -sfn ../havre_staging_app/storage/app/public storage
+
+            # 3. Set correct permissions for Laravel cache/logs
+            chmod -R 755 ~/havre_staging_app/bootstrap/cache ~/havre_staging_app/storage
+
+            # 4. Optional: Run migrations on staging (uncomment to enable)
+            # cd ~/havre_staging_app && php artisan migrate --force
+
+            echo '✅ Deployment and post-configuration completed successfully!'
+          "
