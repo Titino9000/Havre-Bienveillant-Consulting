@@ -28,11 +28,11 @@ jobs:
           rsync -av --exclude='public' --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='tests' --exclude='.env*' . deploy/app/
           rsync -av public/ deploy/public/
 
-      - name: Setup SSH Agent and Known Hosts
+      - name: Setup SSH Agent and Known Hosts`
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.CPANEL_SSH_PRIVATE_KEY }}" > ~/.ssh/ryzhatech_staging_deploy_ssh
+          chmod 600 ~/.ssh/ryzhatech_staging_deploy_ssh
           ssh-keyscan -p ${{ secrets.CPANEL_PORT }} -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy App files to staging app folder
