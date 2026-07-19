@@ -565,7 +565,7 @@ a:hover {
 }
 
 .preloader-logo {
-    height: 60px;
+    height: 90px;
     margin-bottom: 20px;
     animation: pulseLogo 2s infinite ease-in-out;
 }

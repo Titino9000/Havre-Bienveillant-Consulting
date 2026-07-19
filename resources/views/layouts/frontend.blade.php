@@ -33,7 +33,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <img src="{{ asset('assets/frontend/images/logos/logo-landscape.webp') }}" alt="HBC Logo" class="preloader-logo">
+            <img src="{{ asset('assets/frontend/images/logos/logo-portrait.webp') }}" alt="HBC Logo" class="preloader-logo">
             <div class="preloader-spinner"></div>
         </div>
     </div>
